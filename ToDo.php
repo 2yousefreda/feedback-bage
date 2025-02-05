@@ -2,6 +2,7 @@
 <?php
 $subject=$description='';
 $is_active=0;
+$ERRsubject=$ERRdescription='';
 if(isset($_POST['submit'])){
     if(!empty($_POST['subject'])){
 
@@ -10,6 +11,8 @@ if(isset($_POST['submit'])){
             'subject',
             FILTER_SANITIZE_FULL_SPECIAL_CHARS
         );
+    }else{
+        $ERRsubject='Subject is required';
     }
     if(!empty($_POST['description'])){
 
@@ -18,6 +21,8 @@ if(isset($_POST['submit'])){
             'description',
             FILTER_SANITIZE_FULL_SPECIAL_CHARS
         );
+    }else{
+        $ERRdescription='Description is required';
     }
     if(!empty($_POST['is_active'])){
 
@@ -25,11 +30,14 @@ if(isset($_POST['submit'])){
             $is_active=1;
         }
     }
-    $sql="INSERT INTO todo (subject,description,is_active) VALUES ('$subject','$description','$is_active')";
-    if(mysqli_query($conn,$sql)){
-        header('Location: ToDo.php');
-    }else{
-        echo 'ERROR:' .  mysqli_error($conn);
+    if(empty($ERRsubject)&&empty($ERRdescription)){
+
+        $sql="INSERT INTO todo (subject,description,is_active) VALUES ('$subject','$description','$is_active')";
+        if(mysqli_query($conn,$sql)){
+            header('Location: ToDo.php');
+        }else{
+            echo 'ERROR:' .  mysqli_error($conn);
+        }
     }
 }
 
@@ -58,11 +66,11 @@ if(isset($_POST['submit'])){
     ); ?>" class="mb-4" >
                     <div class="mb-3">
                         <label for="subject" class="form-label" value="<?php echo $subject; ?>">Subject</label>
-                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter subject">
+                        <input type="text" class="form-control <?php echo !$ERRsubject ?:'is-invalid'; ?>" id="subject" name="subject" placeholder="Enter subject">
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter description"><?php echo $description; ?></textarea>
+                        <textarea class="form-control <?php echo !$ERRdescription ?:'is-invalid'; ?>" id="description" name="description" rows="3" placeholder="Enter description"><?php echo $description; ?></textarea>
                     </div>
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1">
@@ -87,9 +95,6 @@ if(isset($_POST['submit'])){
                                 <p class="lead mt-3">There is no Tasks</p>
                             <?php endif; ?>
                         <ul class="list-group">
-
-                                
-
                             <?php foreach ($todo as $task ): ?>
 
                                 <li class="list-group-item">
