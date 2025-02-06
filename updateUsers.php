@@ -17,7 +17,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
         header("Location: Users.php");
         exit;
     }
-    print_r($row);
+    // print_r($row);
     $id=$row["id"];
     $name=$row["name"];
     $birth_date=(string)$row["date_of_birth"];
