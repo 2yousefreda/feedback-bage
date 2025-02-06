@@ -122,53 +122,68 @@ if(isset($_POST['submit'])){
                     <?php foreach($users as $card): ?>
 
                         <div class="row justify-content-center mt-5">
-                            <div class="col-md-6">
-                           
-                                <!-- Profile Image Card -->
-                                <div class="card profile-card shadow-lg mb-4" style="border-radius: 20px; overflow: hidden; background: #ffffff; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-                                    <div class="card-body d-flex align-items-center p-4">
+                        <div class="col-md-6">
 
-                                        <!-- Profile Image - Left (Square) -->
-                                        <div class="flex-shrink-0" style="flex-basis: 25%;">
-                                            <img src="<?php echo $card['img_dir'] ?>" alt="Profile Image" class="border w-100" style="aspect-ratio: 1/1; object-fit: cover; border-radius: 10px;">
-                                        </div>
+                            <!-- Profile Image Card -->
+                            <div class="card profile-card shadow-lg mb-4" style="border-radius: 20px; overflow: hidden; background: #ffffff; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                                <div class="card-body d-flex align-items-center p-4">
 
-                                        <!-- User Info - Right -->
-                                        <div class="ms-4" style="flex-basis: 75%; display: flex; flex-direction: column; justify-content: center;">
-                                            <!-- Name and Value -->
-                                            <div class="d-flex align-items-center mb-3">
-                                                <label class="text-muted me-3" style="font-size: 1.2rem;">Name:</label>
-                                                <p class="mb-0 text-primary" style="font-size: 1.5rem; font-weight: bold;"><?php echo $card['name'] ?></p>
-                                            </div>
-
-                                            <!-- Birthdate and Value -->
-                                            <div class="d-flex align-items-center">
-                                                <label class="text-muted me-3" style="font-size: 1.2rem;">Birthdate:</label>
-                                                <p class="mb-0 text-success" style="font-size: 1.5rem; font-weight: bold;"><?php echo $card['date_of_birth'] ?></p>
-                                            </div>
-                                        </div>
-
+                                    <!-- Profile Image - Left (Square) -->
+                                    <div class="flex-shrink-0" style="flex-basis: 25%;">
+                                        <img src="<?php echo $card['img_dir']; ?>" alt="Profile Image" class="border w-100" style="aspect-ratio: 1/1; object-fit: cover; border-radius: 10px;">
                                     </div>
+
+                                    <!-- User Info - Right -->
+                                    <div class="ms-4" style="flex-basis: 75%; display: flex; flex-direction: column; justify-content: center;">
+                                        <!-- Name and Value -->
+                                        <div class="d-flex align-items-center mb-3">
+                                            <label class="text-muted me-3" style="font-size: 1.2rem;">Name:</label>
+                                            <p class="mb-0 text-primary" style="font-size: 1.5rem; font-weight: bold;"><?php echo $card['name']; ?></p>
+                                        </div>
+
+                                        <!-- Birthdate and Value -->
+                                        <div class="d-flex align-items-center mb-3">
+                                            <label class="text-muted me-3" style="font-size: 1.2rem;">Birthdate:</label>
+                                            <p class="mb-0 text-success" style="font-size: 1.5rem; font-weight: bold;"><?php echo $card['date_of_birth']; ?></p>
+                                        </div>
+
+                                        <!-- Edit and Delete Links -->
+                                        <div class="d-flex justify-content-end mt-3">
+                                            <!-- Edit Link -->
+                                            <a href="updateUsers.php?id=<?php echo $card['id']; ?>" class="btn btn-warning me-2">Edit</a>
+
+                                            <!-- Delete Link -->
+                                            <a href="deleteUser.php?id=<?php echo $card['id']; ?>" class="btn btn-danger">Delete</a>
+                                        </div>
+                                    </div>
+
                                 </div>
-
                             </div>
+
                         </div>
+                    </div>
 
-                        <!-- Add this CSS inside a style tag or in your CSS file -->
-                        <style>
-                            .profile-card:hover {
-                                transform: translateY(-10px); /* Move up slightly on hover */
-                                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Add a stronger shadow */
-                            }
+                    <!-- Add this CSS inside a style tag or in your CSS file -->
+                    <style>
+                        .profile-card:hover {
+                            transform: translateY(-10px); /* Move up slightly on hover */
+                            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Add a stronger shadow */
+                        }
 
-                            .profile-card img {
-                                transition: transform 0.3s ease; /* Smooth transition for image */
-                            }
+                        .profile-card img {
+                            transition: transform 0.3s ease; /* Smooth transition for image */
+                        }
 
-                            .profile-card:hover img {
-                                transform: scale(1.05); /* Slightly enlarge image on hover */
-                            }
-                        </style>
+                        .profile-card:hover img {
+                            transform: scale(1.05); /* Slightly enlarge image on hover */
+                        }
+
+                        .btn {
+                            border-radius: 10px;
+                        }
+                    </style>
+
+
 
 
                     <?php endforeach;?>
